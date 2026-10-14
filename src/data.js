@@ -11,7 +11,8 @@ export const featured = [
       'Re-scoped from a 4-person Spring Boot + FastAPI split into one FastAPI + LangGraph + MCP service.',
       'Documented before coded: architecture, API, database, AI design, security and evaluation.'
     ],
-    live: 'https://pathlight-iota.vercel.app', repo: 'https://github.com/amarthya-14/pathlight'
+    live: 'https://pathlight-iota.vercel.app', repo: 'https://github.com/amarthya-14/pathlight',
+    shot: '/work/pathlight.webp'
   },
   {
     code: 'SCN', name: 'Scanline', year: '2026', status: 'live', statusText: 'Live',
@@ -23,7 +24,8 @@ export const featured = [
       'Gemini first, Groq as automatic fallback on the same schema.',
       'No backend to host or pay for.'
     ],
-    live: 'https://unthink-document.vercel.app', repo: 'https://github.com/amarthya-14/Unthink_Document'
+    live: 'https://unthink-document.vercel.app', repo: 'https://github.com/amarthya-14/Unthink_Document',
+    shot: '/work/scanline.webp'
   },
   {
     code: 'LNP', name: 'Leanplate', year: '2026', status: 'live', statusText: 'Live',
@@ -31,7 +33,8 @@ export const featured = [
     desc: 'Diet plans assume you control your kitchen. In a hostel you eat what the mess serves. Leanplate starts from that menu and plans fat loss around it.',
     stack: [],
     notes: ['Built for a constraint I live with every day.'],
-    live: 'https://leanplate.vercel.app', repo: ''
+    live: 'https://leanplate.vercel.app', repo: '',
+    shot: '/work/leanplate.webp'
   }
 ];
 
@@ -52,7 +55,7 @@ export const more = [
     code: 'PLT', name: 'Plants API', year: '2025', status: 'live', statusText: 'Live',
     desc: 'A Spring Boot REST API for a plant catalogue, including PUT and DELETE. My first backend.',
     stack: ['Java', 'Spring Boot'],
-    live: 'https://spring-boot-api-put-and-delete.vercel.app', repo: 'https://github.com/amarthya-14/Plants-DataBase'
+    live: '', repo: 'https://github.com/amarthya-14/Plants-DataBase'
   },
   {
     code: 'ASM', name: 'Assembly: Endgame', year: '2025', status: 'classic', statusText: 'Classic',
@@ -83,9 +86,10 @@ export const milestones = [
   { f: 0.88, corner: 'Rascasse', when: 'Aug–Oct 2026', title: 'Pathlight', text: 'Solo capstone on LangGraph and MCP. Gate 1 cleared, the build is on.' }
 ];
 
+// Capabilities, read as the systems of a car. `part` picks the region of the car that lights up.
 export const setup = [
-  { label: 'Power unit', title: 'AI', items: [['LangGraph', 'Pathlight'], ['MCP', 'Pathlight'], ['Gemini API', 'Scanline'], ['Groq · Llama', 'Scanline'], ['Hugging Face', 'AI Chef']] },
-  { label: 'Chassis', title: 'Languages', items: [['Python', 'Agents · APIs'], ['Java', 'Spring Boot'], ['TypeScript', 'Frontends'], ['JavaScript', 'Frontends']] },
-  { label: 'Aero', title: 'Web', items: [['React', 'Scanline'], ['Next.js', 'Pathlight'], ['Spring Boot', 'Plants API'], ['FastAPI', 'Pathlight'], ['Tailwind', 'Scanline']] },
-  { label: 'Fuel & pit lane', title: 'Data & cloud', items: [['MongoDB', 'Data'], ['Supabase', 'Data'], ['Docker', 'Pathlight'], ['AWS', 'Certified'], ['Azure', 'Quotation Mgr']] }
+  { part: 'power', label: 'Power unit', title: 'AI', line: 'The agents and models that do the thinking.', items: [['LangGraph', 'Pathlight'], ['MCP', 'Pathlight'], ['Gemini API', 'Scanline'], ['Groq · Llama', 'Scanline'], ['Hugging Face', 'AI Chef']] },
+  { part: 'chassis', label: 'Chassis', title: 'Languages', line: 'What everything else is built on.', items: [['Python', 'Agents · APIs'], ['Java', 'Spring Boot'], ['TypeScript', 'Frontends'], ['JavaScript', 'Frontends']] },
+  { part: 'aero', label: 'Aerodynamics', title: 'Web', line: 'The surfaces people actually touch.', items: [['React', 'Scanline'], ['Next.js', 'Pathlight'], ['Spring Boot', 'Plants API'], ['FastAPI', 'Pathlight'], ['Tailwind', 'Scanline']] },
+  { part: 'telemetry', label: 'Telemetry', title: 'Data & cloud', line: 'Where the data lives and the code runs.', items: [['MongoDB', 'Data'], ['Supabase', 'Data'], ['Docker', 'Pathlight'], ['AWS', 'Certified'], ['Azure', 'Quotation Mgr']] }
 ];

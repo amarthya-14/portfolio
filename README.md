@@ -31,11 +31,13 @@ For tuning the animation, `?slowmo` plays it at quarter speed and `?at=5` freeze
 
 ```
 index.html          page markup
-src/main.js         sections, scroll effects, reaction test
+src/main.js         sections, scroll effects, live GitHub line, clock
 src/intro.js        the 3D opening sequence
+src/xray.js         the x-ray car in Capabilities
 src/data.js         projects, milestones, skills (edit content here)
 src/style.css       all styling
 public/models/      the compressed car model (3.1 MB)
+public/work/        screenshots of the live projects
 ```
 
 ## Credits

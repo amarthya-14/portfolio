@@ -1,3 +1,5 @@
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { featured, more, milestones, setup } from './data.js';
 import { playIntro } from './intro.js';
 
@@ -6,25 +8,55 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const chips = (list) => (list.length ? `<div class="chips">${list.map((s) => `<span>${esc(s)}</span>`).join('')}</div>` : '');
 
-/* ---------- Work ---------- */
+/* ---------- Work: projects on the left, a sticky screen on the right that follows them ---------- */
+const host = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 document.getElementById('featured').innerHTML = featured.map((p, i) => `
-  <article class="work reveal">
+  <article class="work reveal" data-i="${i}">
+    ${p.shot ? `<img class="work-shot" src="${p.shot}" alt="${esc(p.name)} home screen" loading="lazy" width="1100" height="688">` : ''}
     <div class="work-idx">0${i + 1}</div>
-    <div>
-      <h3 class="work-name">${esc(p.name)}</h3>
-      <p class="work-tag">${esc(p.tagline)}</p>
-      <div class="work-status"><span class="status ${p.status}">${p.statusText}</span><span>${esc(p.year)}</span></div>
-    </div>
-    <div class="work-body">
-      <p>${esc(p.desc)}</p>
-      <ul class="work-notes">${p.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-      ${p.stack.length ? `<div class="stack">${p.stack.map((t) => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
-      <div class="work-links">
-        ${p.live ? `<a class="link-arrow" href="${p.live}" target="_blank" rel="noopener">Visit live site</a>` : ''}
-        ${p.repo ? `<a class="link-arrow" href="${p.repo}" target="_blank" rel="noopener">Source code</a>` : ''}
-      </div>
+    <h3 class="work-name">${esc(p.name)}</h3>
+    <p class="work-tag">${esc(p.tagline)}</p>
+    <div class="work-status"><span class="status ${p.status}">${p.statusText}</span><span>${esc(p.year)}</span></div>
+    <p class="work-desc">${esc(p.desc)}</p>
+    <ul class="work-notes">${p.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+    ${p.stack.length ? `<div class="stack">${p.stack.map((t) => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
+    <div class="work-links">
+      ${p.live ? `<a class="link-arrow" href="${p.live}" target="_blank" rel="noopener">Visit live site</a>` : ''}
+      ${p.repo ? `<a class="link-arrow" href="${p.repo}" target="_blank" rel="noopener">Source code</a>` : ''}
     </div>
   </article>`).join('');
+
+const screenFrame = document.getElementById('screenFrame');
+screenFrame.insertAdjacentHTML('afterbegin', featured.map((p, i) =>
+  `<img src="${p.shot}" alt="" width="1100" height="688" class="${i === 0 ? 'on' : ''}" decoding="async">`).join(''));
+const shots = [...screenFrame.querySelectorAll('img')];
+const screenIdx = document.getElementById('screenIdx');
+const screenUrl = document.getElementById('screenUrl');
+const workEls = [...document.querySelectorAll('.work')];
+let shotNow = -1;
+function setShot(i) {
+  if (i === shotNow) return;
+  const prev = shotNow;
+  shotNow = i;
+  shots.forEach((img, k) => {
+    img.classList.toggle('on', k === i);
+    img.classList.toggle('below', k > i);
+  });
+  workEls.forEach((el, k) => el.classList.toggle('hot', k === i));
+  screenIdx.textContent = `0${i + 1} / 0${featured.length}`;
+  screenUrl.textContent = featured[i].live ? host(featured[i].live) : '';
+  if (prev >= 0) {
+    screenFrame.classList.remove('scan');
+    void screenFrame.offsetWidth;
+    screenFrame.classList.add('scan');
+  }
+}
+function updateWork() {
+  const mid = window.innerHeight * 0.55;
+  let active = 0;
+  workEls.forEach((el, i) => { if (el.getBoundingClientRect().top < mid) active = i; });
+  setShot(active);
+}
 
 document.getElementById('archive').innerHTML = more.map((p) => `
   <div class="arow reveal">
@@ -38,12 +70,27 @@ document.getElementById('archive').innerHTML = more.map((p) => `
     </span>
   </div>`).join('');
 
-/* ---------- Capabilities ---------- */
-document.getElementById('caps').innerHTML = setup.map((s) => `
-  <div class="cap reveal">
+/* ---------- Capabilities: the x-ray car ---------- */
+document.getElementById('caps').innerHTML = setup.map((s, i) => `
+  <li class="xr-card${i === 0 ? ' on' : ''}" data-i="${i}">
+    <p class="xr-part"><span>0${i + 1}</span>${esc(s.label)}</p>
     <h3>${esc(s.title)}</h3>
+    <p class="xr-line">${esc(s.line)}</p>
     <ul>${s.items.map(([a, b]) => `<li><span>${esc(a)}</span><span>${esc(b)}</span></li>`).join('')}</ul>
-  </div>`).join('');
+  </li>`).join('');
+document.getElementById('xrSteps').innerHTML = setup.map((s, i) => `<li class="${i === 0 ? 'on' : ''}"><span>0${i + 1}</span>${esc(s.label)}</li>`).join('');
+const xrSection = document.getElementById('capabilities');
+if (reduceMotion) {
+  xrSection.classList.add('static');
+} else {
+  // Start loading three.js and the car a little before the section scrolls into view
+  const near = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    near.disconnect();
+    import('./xray.js').then((m) => m.initXray(setup)).catch(() => xrSection.classList.add('static'));
+  }, { rootMargin: '150% 0px' });
+  near.observe(xrSection);
+}
 
 /* ---------- Journey: milestones + scroll-driven marker ---------- */
 const list = document.getElementById('milestones');
@@ -132,6 +179,7 @@ function onScroll() {
     if (max > 0 && window.scrollY >= max - 4) current = sections.length - 1;
     navLinks.forEach((a, i) => a.classList.toggle('active', i === current));
     updateLap();
+    updateWork();
   });
 }
 window.addEventListener('scroll', onScroll, { passive: true });
@@ -148,67 +196,6 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
   }, { rootMargin: '0px 0px -8% 0px' });
   reveals.forEach((el) => io.observe(el));
 }
-
-/* ---------- Reaction test: five lights, random hold, then lights out ---------- */
-(() => {
-  const box = document.getElementById('rx');
-  const pods = [...box.querySelectorAll('.rx-pod')];
-  const timeEl = document.getElementById('rxTime');
-  const msgEl = document.getElementById('rxMsg');
-  const bestEl = document.getElementById('rxBest');
-  let state = 'idle'; // idle → lighting → waiting → done
-  let timers = [];
-  let outAt = 0;
-  let best = null;
-  try { best = parseFloat(localStorage.getItem('rxBest')) || null; } catch (e) { /* storage blocked */ }
-  if (best) bestEl.textContent = best.toFixed(3);
-
-  const clear = () => { timers.forEach(clearTimeout); timers = []; };
-  const setTime = (txt, cls = '') => { timeEl.textContent = txt; timeEl.className = 'rx-time ' + cls; };
-
-  function start() {
-    clear();
-    state = 'lighting';
-    pods.forEach((p) => p.classList.remove('on'));
-    setTime('0.000');
-    msgEl.textContent = 'Wait for lights out…';
-    pods.forEach((p, i) => timers.push(setTimeout(() => p.classList.add('on'), 600 + i * 900)));
-    const hold = 600 + 4 * 900 + 400 + Math.random() * 2600;
-    timers.push(setTimeout(() => {
-      pods.forEach((p) => p.classList.remove('on'));
-      state = 'waiting';
-      outAt = performance.now();
-    }, hold));
-  }
-
-  function press() {
-    if (state === 'idle' || state === 'done') return start();
-    if (state === 'lighting') {
-      clear();
-      pods.forEach((p) => p.classList.remove('on'));
-      state = 'done';
-      setTime('Jump start', 'jump');
-      msgEl.textContent = 'You moved before lights out. Click to try again';
-      return;
-    }
-    const rt = (performance.now() - outAt) / 1000;
-    state = 'done';
-    setTime(rt.toFixed(3), rt < 0.25 ? 'good' : '');
-    msgEl.textContent = rt < 0.2 ? 'Faster than an F1 start. Click to go again'
-      : rt < 0.3 ? 'Close to F1 pace. Click to go again'
-      : 'Click to go again';
-    if (!best || rt < best) {
-      best = rt;
-      bestEl.textContent = rt.toFixed(3);
-      try { localStorage.setItem('rxBest', String(rt)); } catch (e) { /* storage blocked */ }
-    }
-  }
-
-  box.addEventListener('pointerdown', (e) => { if (e.button === 0) press(); });
-  box.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' || e.key === 'Enter') { e.preventDefault(); if (!e.repeat) press(); }
-  });
-})();
 
 /* ---------- Contact ---------- */
 const copyBtn = document.getElementById('copyEmail');
@@ -227,6 +214,47 @@ copyBtn.addEventListener('click', async () => {
   }
   setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
 });
+
+/* ---------- Local time, ticking ---------- */
+const clock = document.getElementById('clock');
+const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+const tick = () => { clock.textContent = `${fmt.format(new Date())} IST`; };
+tick();
+setInterval(tick, 1000);
+
+/* ---------- What I'm building right now, live from GitHub ---------- */
+(async () => {
+  const now = document.getElementById('now');
+  const KEY = 'ghNow';
+  let data = null;
+  try { data = JSON.parse(sessionStorage.getItem(KEY)); } catch (e) { /* storage blocked */ }
+  if (!data) {
+    try {
+      const res = await fetch('https://api.github.com/users/amarthya-14/repos?per_page=30&sort=pushed');
+      if (!res.ok) return;
+      const repos = (await res.json()).filter((r) => !r.fork && r.name.toLowerCase() !== 'amarthya-14');
+      if (!repos.length) return;
+      data = { name: repos[0].name, url: repos[0].html_url, at: repos[0].pushed_at };
+      try { sessionStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { /* storage blocked */ }
+    } catch (e) { return; }
+  }
+  const days = (Date.now() - new Date(data.at).getTime()) / 864e5;
+  if (!(days >= 0) || days > 45) return;
+  const ago = days < 1 / 24 ? 'minutes ago' : days < 1 ? `${Math.round(days * 24)}h ago` : `${Math.round(days)}d ago`;
+  const project = featured.find((p) => p.repo && p.repo.toLowerCase() === data.url.toLowerCase());
+  now.innerHTML = `<i></i>Now building <a href="${esc(data.url)}" target="_blank" rel="noopener">${esc(project ? project.name : data.name)}</a> · last push ${ago}`;
+  now.hidden = false;
+})();
+
+/* ---------- Smooth scrolling ---------- */
+if (!reduceMotion) {
+  const lenis = new Lenis({ anchors: { offset: 0 }, lerp: 0.11 });
+  const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+  requestAnimationFrame(raf);
+  const sync = () => (document.documentElement.classList.contains('intro-on') ? lenis.stop() : lenis.start());
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  sync();
+}
 
 /* ---------- Intro ---------- */
 if (document.documentElement.classList.contains('intro-on')) playIntro();

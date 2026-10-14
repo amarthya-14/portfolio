@@ -61,7 +61,7 @@
       <div class="wrap">
         <div class="hero-meta">
           <span>AI/ML Engineer · Full-stack Developer</span>
-          <span>VIT-AP University</span>
+          <span class="now" id="now" hidden></span>
         </div>
         <p class="hero-first">Jonnalagadda Sai</p>
         <h1 class="hero-name">Amarthya<span class="dot-red">.</span></h1>
@@ -79,9 +79,9 @@
       <div class="wrap">
         <dl class="facts">
           <div><dt>Focus</dt><dd>Agentic AI · Full stack</dd></div>
-          <div><dt>Studying</dt><dd>B.Tech CSE, AI &amp; ML</dd></div>
+          <div><dt>Studying</dt><dd>B.Tech CSE (AI &amp; ML), VIT-AP</dd></div>
           <div><dt>Certified</dt><dd>AWS Cloud Practitioner</dd></div>
-          <div><dt>Shipped</dt><dd>6 live projects</dd></div>
+          <div><dt>Shipped</dt><dd>5 live projects</dd></div>
         </dl>
       </div>
     </section>
@@ -92,7 +92,15 @@
           <p class="eyebrow">Selected work</p>
           <h2 class="section-title">Things I’ve built, <em>and shipped.</em></h2>
         </header>
-        <div class="featured" id="featured"></div>
+        <div class="showcase">
+          <div class="featured" id="featured"></div>
+          <div class="screen-col" aria-hidden="true">
+            <figure class="screen" id="screen">
+              <div class="screen-frame" id="screenFrame"><i class="scanline"></i></div>
+              <figcaption><span id="screenIdx">01 / 03</span><span id="screenUrl"></span></figcaption>
+            </figure>
+          </div>
+        </div>
         <div class="archive">
           <p class="eyebrow">Earlier projects</p>
           <div class="archive-list" id="archive"></div>
@@ -127,40 +135,29 @@
       </div>
     </section>
 
-    <section class="section" id="capabilities">
+    <section class="section xr" id="capabilities">
       <div class="wrap">
         <header class="section-head">
           <p class="eyebrow">Capabilities</p>
           <h2 class="section-title">The tools, <em>and where they run.</em></h2>
+          <p class="section-note">Taken apart the way an engineer reads a car: four systems, each one doing a job.</p>
         </header>
-        <div class="caps" id="caps"></div>
+      </div>
+      <div class="xr-track" id="xrTrack">
+        <div class="xr-stage" id="xrStage">
+          <canvas class="xr-canvas" id="xrCanvas" aria-hidden="true"></canvas>
+          <svg class="xr-lines" id="xrLines" aria-hidden="true"><polyline id="xrLeader"/><circle id="xrPin" r="4"/><circle id="xrPinRing" r="12"/></svg>
+          <div class="wrap xr-ui">
+            <ol class="xr-cards" id="caps"></ol>
+            <ol class="xr-steps" id="xrSteps" aria-hidden="true"></ol>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
         <div class="creds">
           <div><span class="cred-k">Certification</span><span class="cred-v">AWS Certified Cloud Practitioner</span></div>
           <div><span class="cred-k">Education</span><span class="cred-v">B.Tech Computer Science (AI &amp; ML), VIT-AP University</span></div>
           <div><span class="cred-k">Off the clock</span><span class="cred-v">Formula 1. Scuderia Ferrari, and every Leclerc qualifying lap.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="reaction">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="eyebrow">Pit lane</p>
-          <h2 class="section-title">Think you’re quick? <em>Lights out.</em></h2>
-          <p class="section-note">Five red lights, then darkness. Click the moment they go out. Formula 1 drivers react in roughly two tenths of a second.</p>
-        </header>
-        <div class="rx" id="rx" role="button" tabindex="0" aria-label="Reaction test. Press to start, then press again when the lights go out.">
-          <div class="rx-gantry" aria-hidden="true">
-            <span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span>
-          </div>
-          <div class="rx-readout">
-            <span class="rx-time" id="rxTime">0.000</span>
-            <span class="rx-msg" id="rxMsg" aria-live="polite">Click or press Space to start</span>
-          </div>
-          <div class="rx-foot">
-            <span>Your best <b id="rxBest">—</b></span>
-            <span>F1 driver ≈ <b>0.200</b></span>
-          </div>
         </div>
       </div>
     </section>
@@ -173,6 +170,7 @@
           <a class="mail" id="email" href="mailto:amarthyajonnalagadda2005@gmail.com">amarthyajonnalagadda2005@gmail.com</a>
           <button class="copy" id="copyEmail" type="button">Copy</button>
         </div>
+        <p class="contact-time">Andhra Pradesh, India · <span id="clock">IST</span></p>
         <div class="contact-links">
           <a class="link-arrow" href="https://www.linkedin.com/in/jonnalagadda-amarthya/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="link-arrow" href="https://github.com/amarthya-14" target="_blank" rel="noopener">GitHub</a>

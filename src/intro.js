@@ -3,7 +3,7 @@
 
 const SEEN_KEY = 'introSeen';
 const FORWARD = 1; // the model's nose points along +z
-const MODEL_URL = '/models/sf23.glb';
+export const MODEL_URL = '/models/sf23.glb';
 const MODEL_BYTES = 3.3e6; // used for the progress bar when the server sends no length
 const CAR_SCALE = 1.15; // the source model is ~85% of a real car; bring it up to ~5.5 m
 // Axles in model space (metres): y = centre height, z = position along the car, r = tyre radius,
@@ -21,7 +21,7 @@ const frozen = !Number.isNaN(FREEZE_AT);
 let running = false;
 let threeModules = null;
 
-function loadThree() {
+export function loadThree() {
   if (!threeModules) {
     threeModules = Promise.all([
       import('three'),
