@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jonnalagadda Sai Amarthya</title>
+  <meta name="description" content="AI/ML engineer and full-stack developer building agentic systems with LangGraph, Gemini and MCP.">
+  <meta name="theme-color" content="#0A0A0B">
+  <meta property="og:title" content="Jonnalagadda Sai Amarthya">
+  <meta property="og:description" content="AI/ML engineer and full-stack developer building agentic systems with LangGraph, Gemini and MCP.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0A0B'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%23D40000'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/src/style.css">
+  <script>
+    // Decide before first paint whether the intro plays, so the site never flashes underneath it.
+    (function () {
+      var skip = false;
+      try { skip = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) skip = true;
+      if (/[?&](intro|slowmo|at)(=|&|$)/.test(location.search)) skip = false;
+      if (!skip) document.documentElement.classList.add('intro-on');
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Intro: the car on the grid, five lights, launch -->
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Opening animation">
+    <canvas class="intro-canvas" id="introCanvas"></canvas>
+    <div class="intro-shade" aria-hidden="true"></div>
+    <div class="intro-hud">
+      <div class="intro-top">
+        <span class="wordmark">Amarthya</span>
+        <button class="skip" id="skipIntro" type="button">Skip</button>
+      </div>
+      <div class="lights" id="lights" aria-hidden="true"></div>
+      <div class="intro-bottom">
+        <div class="load" id="load"><span class="load-line"><span id="loadFill"></span></span><span class="load-pct" id="loadPct">0</span></div>
+        <span class="intro-caption">Portfolio · 2026</span>
+      </div>
+    </div>
+    <p class="sr-only" id="introStatus" role="status">Loading</p>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="wordmark" href="#top">Amarthya<span class="dot-red">.</span></a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#journey">Journey</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-meta">
+          <span>AI/ML Engineer · Full-stack Developer</span>
+          <span>VIT-AP University</span>
+        </div>
+        <p class="hero-first">Jonnalagadda Sai</p>
+        <h1 class="hero-name">Amarthya<span class="dot-red">.</span></h1>
+        <div class="hero-foot">
+          <p class="hero-statement">I build AI systems that <em>act on their own</em>, and the software around them that people actually use.</p>
+          <div class="hero-side">
+            <p>Agentic systems with LangGraph, Gemini and MCP, on a full-stack foundation of Spring Boot, FastAPI and MongoDB. Computer Science (AI &amp; ML) undergraduate and AWS Certified Cloud Practitioner.</p>
+            <div class="hero-links">
+              <a class="link-arrow" href="#work">Selected work</a>
+              <a class="link-arrow" href="#contact">Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <dl class="facts">
+          <div><dt>Focus</dt><dd>Agentic AI · Full stack</dd></div>
+          <div><dt>Studying</dt><dd>B.Tech CSE, AI &amp; ML</dd></div>
+          <div><dt>Certified</dt><dd>AWS Cloud Practitioner</dd></div>
+          <div><dt>Shipped</dt><dd>6 live projects</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Selected work</p>
+          <h2 class="section-title">Things I’ve built, <em>and shipped.</em></h2>
+        </header>
+        <div class="featured" id="featured"></div>
+        <div class="archive">
+          <p class="eyebrow">Earlier projects</p>
+          <div class="archive-list" id="archive"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Journey</p>
+          <h2 class="section-title">Two years, <em>one lap.</em></h2>
+          <p class="section-note">Each milestone takes its name from a corner of Monaco, the circuit Charles Leclerc calls home.</p>
+        </header>
+        <div class="journey">
+          <div class="journey-map">
+            <figure class="map">
+              <svg viewBox="0 0 1000 500" role="img" aria-label="Track outline; the marker shows the milestone you are reading">
+                <g fill="none" stroke-linejoin="round" stroke-linecap="round">
+                  <path class="trk trk-base" id="track" d="M150 420 L560 420 Q640 420 660 360 L700 240 Q718 182 776 182 L850 182 Q912 182 908 128 Q902 78 840 78 L530 78 Q478 78 458 118 Q440 160 388 160 L300 160 Q250 160 240 212 L232 256 Q222 302 170 302 Q100 302 92 362 Q86 420 150 420 Z"/>
+                  <path class="trk trk-done" id="driven"/>
+                </g>
+                <line class="trk-start" x1="186" y1="404" x2="186" y2="436"/>
+                <g id="corners"></g>
+                <g id="mapCar"><circle class="car-halo" r="16"/><circle class="car-dot" r="6"/></g>
+              </svg>
+              <figcaption><span>Circuit de Monaco</span><span id="mapNow">Start</span></figcaption>
+            </figure>
+          </div>
+          <ol class="milestones" id="milestones"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="capabilities">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Capabilities</p>
+          <h2 class="section-title">The tools, <em>and where they run.</em></h2>
+        </header>
+        <div class="caps" id="caps"></div>
+        <div class="creds">
+          <div><span class="cred-k">Certification</span><span class="cred-v">AWS Certified Cloud Practitioner</span></div>
+          <div><span class="cred-k">Education</span><span class="cred-v">B.Tech Computer Science (AI &amp; ML), VIT-AP University</span></div>
+          <div><span class="cred-k">Off the clock</span><span class="cred-v">Formula 1. Scuderia Ferrari, and every Leclerc qualifying lap.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reaction">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Pit lane</p>
+          <h2 class="section-title">Think you’re quick? <em>Lights out.</em></h2>
+          <p class="section-note">Five red lights, then darkness. Click the moment they go out. Formula 1 drivers react in roughly two tenths of a second.</p>
+        </header>
+        <div class="rx" id="rx" role="button" tabindex="0" aria-label="Reaction test. Press to start, then press again when the lights go out.">
+          <div class="rx-gantry" aria-hidden="true">
+            <span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span><span class="rx-pod"><i></i><i></i></span>
+          </div>
+          <div class="rx-readout">
+            <span class="rx-time" id="rxTime">0.000</span>
+            <span class="rx-msg" id="rxMsg" aria-live="polite">Click or press Space to start</span>
+          </div>
+          <div class="rx-foot">
+            <span>Your best <b id="rxBest">—</b></span>
+            <span>F1 driver ≈ <b>0.200</b></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="wrap">
+        <p class="eyebrow">Contact</p>
+        <h2 class="contact-title">Let’s build something <em>remarkable.</em></h2>
+        <div class="contact-mail">
+          <a class="mail" id="email" href="mailto:amarthyajonnalagadda2005@gmail.com">amarthyajonnalagadda2005@gmail.com</a>
+          <button class="copy" id="copyEmail" type="button">Copy</button>
+        </div>
+        <div class="contact-links">
+          <a class="link-arrow" href="https://www.linkedin.com/in/jonnalagadda-amarthya/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="link-arrow" href="https://github.com/amarthya-14" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <span>© 2026 Jonnalagadda Sai Amarthya</span>
+      <button class="replay" id="replayIntro" type="button">Replay intro</button>
+      <span class="credit">Car: <a href="https://sketchfab.com/3d-models/scuderia-ferrari-f1-sf23-2023-ecb0f812bc454331bbe721655b0780ec" target="_blank" rel="noopener">“Scuderia Ferrari F1 SF23 2023”</a> by Redgrund, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Number changed to 16, model compressed.</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
