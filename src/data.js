@@ -2,14 +2,14 @@
 
 export const featured = [
   {
-    code: 'PTH', name: 'Pathlight', year: '2026', status: 'build', statusText: 'In build',
+    code: 'PTH', name: 'Pathlight', year: '2026', status: 'live', statusText: 'Live',
     tagline: 'Autonomous career and opportunity intelligence.',
     desc: 'My solo capstone. Pathlight watches a student’s whole professional picture (resumes, placement emails, skills, deadlines) and surfaces ranked opportunities, skill gaps, prep plans and application tracking on its own. An event-driven agentic system with MCP tool access at its core, not a chatbot and not a resume grader.',
-    stack: ['FastAPI', 'LangGraph', 'MCP', 'Next.js', 'Docker Compose'],
+    stack: ['FastAPI', 'LangGraph', 'MCP', 'ChromaDB', 'MongoDB', 'Next.js', 'Docker'],
     notes: [
-      'Gate 1 complete: architecture finalized, repo scaffolded.',
-      'Re-scoped from a 4-person Spring Boot + FastAPI split into one FastAPI + LangGraph + MCP service.',
-      'Documented before coded: architecture, API, database, AI design, security and evaluation.'
+      'Five LangGraph agents, with plain rules deciding everything a rule can decide before any LLM is called.',
+      'Never applies on its own: every application waits for the student to approve the tailored resume, and a code-level check rejects any resume that invents a skill.',
+      'Measured, not assumed: an eval harness scores the agents (eligibility: 87.5% accuracy, zero false positives), backed by 287 automated tests.'
     ],
     live: 'https://pathlight-iota.vercel.app', repo: 'https://github.com/amarthya-14/pathlight',
     shot: '/work/pathlight.webp'
@@ -39,6 +39,18 @@ export const featured = [
 ];
 
 export const more = [
+  {
+    code: 'KRS', name: 'Krishi-Agent', year: '2026', status: 'classic', statusText: 'Team',
+    desc: 'A Telugu voice assistant for farmers that weighs crop disease, weather and mandi prices into one answer. Fine-tuned DINOv2 disease model: 23.5% to 72.9% on real field photos. Paper under review.',
+    stack: ['PyTorch', 'DINOv2', 'FastAPI', 'Ollama'],
+    live: '', repo: 'https://github.com/harikharreddy/krishi-agent'
+  },
+  {
+    code: 'PFT', name: 'PEFT Telugu Bench', year: '2026', status: 'build', statusText: 'In build',
+    desc: 'LoRA vs DoRA vs QLoRA: fine-tuning a small LLM on Telugu and measuring what each method costs and buys.',
+    stack: ['PyTorch', 'Transformers', 'PEFT'],
+    live: '', repo: 'https://github.com/amarthya-14/peft-telugu-bench'
+  },
   {
     code: 'QTM', name: 'Quotation Manager', year: '2025–26', status: 'live', statusText: 'Live',
     desc: 'Quotation software for SM Enterprises, a home-theatre business. Built for a real client, deployed on Azure.',
@@ -83,7 +95,7 @@ export const milestones = [
   { f: 0.52, corner: 'Portier', when: 'Jul 2025', title: 'First real client', text: 'Started the Quotation Manager for SM Enterprises, a home-theatre business.' },
   { f: 0.63, corner: 'Nouvelle Chicane', when: 'Jun 2026', title: 'Back in the garage', text: 'Rebuilt and redeployed Quotation Manager, AI Chef and the Plants API.' },
   { f: 0.76, corner: 'Piscine', when: 'Aug 2026', title: 'Scanline ships', text: 'An agentic document summarizer with OCR fallback, entirely in the browser.' },
-  { f: 0.88, corner: 'Rascasse', when: 'Aug–Oct 2026', title: 'Pathlight', text: 'Solo capstone on LangGraph and MCP. Gate 1 cleared, the build is on.' }
+  { f: 0.88, corner: 'Rascasse', when: 'Aug–Oct 2026', title: 'Pathlight', text: 'Solo capstone on LangGraph and MCP. Live, with an eval harness and 287 tests.' }
 ];
 
 // Capabilities, read as the systems of a car. `part` picks the region of the car that lights up.
