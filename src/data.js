@@ -41,8 +41,8 @@ export const featured = [
 export const more = [
   {
     code: 'KRS', name: 'Krishi-Agent', year: '2026', status: 'classic', statusText: 'Team',
-    desc: 'Team capstone: a Telugu voice assistant for farmers that weighs crop disease, weather and mandi prices into one answer. I redesigned the UI as Telugu-first and fixed the Weather Agent.',
-    stack: ['FastAPI', 'PyTorch', 'Ollama'],
+    desc: 'Capstone built by a team of four: a Telugu voice assistant for farmers that weighs crop disease, weather and mandi prices into one answer. Fine-tuned DINOv2 disease model: 23.5% to 72.9% on real field photos. Paper under review.',
+    stack: ['PyTorch', 'DINOv2', 'FastAPI', 'Ollama'],
     live: '', repo: 'https://github.com/harikharreddy/krishi-agent'
   },
   {
